@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@tailwind utilities;
+@custom-variant dark (&:where(.dark, .dark *));
+
+  @theme {
+    --color-background: #F8F8F8;
+    --color-whitesomke : var(--color-zinc-50);
+    --color-darkgrey: #404040;
+    --color-maingreen: #3AD197;
+    --color-darkgreen: #457A4B;
+    --color-darkmode-light: #292929;
+    --color-darkmode-dark: #1C1B1B;
+    --color-darkmode-lighttext: #E5E5E5;
+    --color-loadinglight: #eeeeee;
+  }
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
