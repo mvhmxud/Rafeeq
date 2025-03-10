@@ -1,0 +1,34 @@
+{
+  "title": "رفيق",
+  "NavBar":{
+      "Home"  :"الرئيسية",
+      "ContactUS" : "تواصل معنا",
+      "LightMode" : "وضع السطوع",
+      "DarkMode" : "الوضع المظلم",
+      "Language"  : "English"
+  },
+  "HeroBanner":{
+      "PrayerTimes"  : "مواقيت الصلاة",
+      "ListenTo" : "إستمع إلى",
+      "Quran"  : "القرآن الكريم",
+      "ByYour" : "بصوت" ,
+       "FavouriteReciters" : "قرائك المفضلين",
+       "More" : "والمزيد ! "
+  },
+  "QuickLinks" : {
+      "title" : "الوصول السريع",
+      "ListenTo" : "إستمع إلى",
+      "Quran"  : "القرآن الكريم",
+      "ByYour" : "بصوت" ,
+       "FavouriteReciters" : "قرائك المفضلين",
+       "Get" : "معرفة",
+       "PrayerTimes"  : "مواقيت الصلاة",
+       "ForYourLocation"  :"حسب موقعك الجغرافى",
+      "Soon" : "قريباً"
+
+  },
+  "Quran":{
+  "header" : "جميع القراء",
+  "placeholder" :  "مثال : البقرة"
+}
+}

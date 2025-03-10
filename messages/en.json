@@ -1,0 +1,35 @@
+{
+    "title": "Rafeeq",
+    "NavBar":{
+        "Home"  :"Home",
+        "ContactUS" : "Contact us",
+        "LightMode" : "Switch to Light Mode",
+        "DarkMode" : "Switch to Dark Mode",
+        "Language"  : "العربية"
+    },
+    "HeroBanner":{
+        "PrayerTimes"  : "Prayer Times",
+        "ListenTo" : "Listen to",
+        "Quran"  : "Quran",
+        "ByYour" : "by your" ,
+         "FavouriteReciters" : "Favourite Reciters",
+         "More" : "and more!"
+    },
+    "QuickLinks" : {
+        "title" : "Quick Links",
+        "ListenTo" : "Listen to",
+        "Quran"  : "Quran",
+        "ByYour" : "by your" ,
+         "FavouriteReciters" : "favourite reciters",
+         "Get" : "Get",
+         "PrayerTimes"  : "prayer times",
+         "ForYourLocation"  :"for your current location .",
+        "Soon" : "Soon"
+
+    }
+,
+"Quran":{
+    "header" : "All Reciters",
+    "placeholder" :  "ex : Albaqrah"
+}
+}
