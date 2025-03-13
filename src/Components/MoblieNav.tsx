@@ -1,30 +1,31 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { AnimatePresence, motion } from "framer-motion"
-import type { Formats, TranslationValues } from "next-intl"
-import { Link } from "@/i18n/navigation"
+import { AnimatePresence, motion } from "framer-motion";
+import type { Formats, TranslationValues } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 interface MobileNavProps {
-  isMenuOpened: boolean
+  isMenuOpened: boolean;
   navItems: (
     | {
-        label: string
-        href: string
-        onClick?: undefined
+        label: string;
+        href: string;
+        onClick?: undefined;
       }
     | {
-        label: string
-        href: string
-        onClick: () => void
+        label: string;
+        href: string;
+        onClick: () => void;
       }
-  )[]
-  setIsMenuOpened: (val: boolean) => void
-  toggleTheme: () => void
-  locale: string
-  theme: string
-  t: (key: string, values?: TranslationValues, formats?: Formats) => string
+  )[];
+  setIsMenuOpened: (val: boolean) => void;
+  toggleTheme: () => void;
+  locale: string;
+  theme: string;
+  t: (key: string, values?: TranslationValues, formats?: Formats) => string;
+  toggleLang: () => void;
 }
 const MoblieNav: React.FC<MobileNavProps> = ({
   isMenuOpened,
@@ -33,6 +34,7 @@ const MoblieNav: React.FC<MobileNavProps> = ({
   toggleTheme,
   t,
   theme,
+  toggleLang,
 }) => {
   return (
     <AnimatePresence>
@@ -49,20 +51,27 @@ const MoblieNav: React.FC<MobileNavProps> = ({
               key={label}
               href={href}
               onClick={() => {
-                setIsMenuOpened(false)
-                onClick?.()
+                setIsMenuOpened(false);
+                onClick?.();
               }}
               className="w-full text-center p-2 hover:bg-lite-maingreen dark:hover:bg-zinc-900 transition-colors ease-in-out delay-75 rounded-md"
             >
               {label}
             </Link>
           ))}
-
-          {/* Dark Mode Toggle */}
           <button
             onClick={() => {
-              setIsMenuOpened(false)
-              toggleTheme()
+              setIsMenuOpened(false);
+              toggleLang();
+            }}
+            className="w-full text-center p-2 hover:bg-lite-maingreen dark:hover:bg-zinc-900 transition-colors ease-in-out delay-75 rounded-md"
+          >
+            {t("NavBar.Language")}
+          </button>
+          <button
+            onClick={() => {
+              setIsMenuOpened(false);
+              toggleTheme();
             }}
             className="w-full text-center p-2 hover:bg-lite-maingreen dark:hover:bg-zinc-900 transition-colors ease-in-out delay-75 rounded-md"
           >
@@ -71,8 +80,7 @@ const MoblieNav: React.FC<MobileNavProps> = ({
         </motion.ul>
       )}
     </AnimatePresence>
-  )
-}
+  );
+};
 
-export default MoblieNav
-
+export default MoblieNav;

@@ -22,3 +22,33 @@
   --background: #ffffff;
   --foreground: #171717;
 }
+
+.swiper-button-next,
+.swiper-button-prev {
+
+    right:10px;
+    padding: 30px;
+    color: var(--maingreen) !important;
+    fill: var(--maingreen) !important;
+    stroke: var(--darkgreen) !important;
+}
+.swiper-pagination .swiper-pagination-bullet {
+  transform: scale(0.5);
+  opacity: 1;
+  background-color: #3AD197;
+}
+.swiper-pagination{
+  
+}
+.swiper-pagination .swiper-pagination-bullet-active {
+  transition: 0.5s ease-in-out;
+  transform: scale(1);
+  background-color: #0ba56a;
+}
+.swiper-container{
+  width: 100%;
+}
+.swiper-slide{
+  width: 100%;
+  height: 100%;
+}
