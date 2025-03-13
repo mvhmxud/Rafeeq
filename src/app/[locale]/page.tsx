@@ -1,17 +1,17 @@
-
-import React from 'react';
-import HeroBanner from '../../Components/HeroBanner';
-import "./globals.css"
-import NavBar from '@/Components/NavBar';
-import QuickLink from '@/Components/QuickLinks';
+import React from "react";
+import HeroBanner from "../../Components/HeroBanner";
+import QuranVerse from "@/Components/QuranVerse";
+import DetailsSection from "@/Components/DetailsSection";
+import KeyFeatures from "@/Components/KeyFeatures";
 // import NavBar from './Components/NavBar';
- 
-export default function HomePage() {
 
+export default function HomePage() {
   return (
-    <React.Fragment >
-      <HeroBanner/>
-      <QuickLink/>
-    </React.Fragment>
+    <div className="flex flex-col gap-5">
+      <HeroBanner />
+      <DetailsSection />
+      <KeyFeatures />
+      <QuranVerse />
+    </div>
   );
 }

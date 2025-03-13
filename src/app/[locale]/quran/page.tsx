@@ -1,9 +1,9 @@
 import React from 'react'
 
-const paget = () => {
+const page = () => {
   return (
     <div>Quran</div>
   )
 }
 
-export default paget
+export default page

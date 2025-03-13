@@ -1,51 +1,57 @@
-"use client";
+"use client"
 
-import useToggleLanguage from "@/Hooks/ChangeLanguage";
-import { useTranslations } from "next-intl";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { IoClose, IoMenu, IoMoon, IoSunny } from "react-icons/io5";
-import { useThemeStore } from "@/store/store";
-import MoblieNav from "./MoblieNav";
+import type React from "react"
+
+import useToggleLanguage from "@/Hooks/ChangeLanguage"
+import { useTranslations, useLocale } from "next-intl"
+import { useEffect, useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
+import { IoClose, IoMenu, IoMoon, IoSunny } from "react-icons/io5"
+import { useThemeStore } from "@/store/store"
+import MoblieNav from "./MoblieNav"
+import { Link as IntlLink } from "@/i18n/navigation"
 
 const NavBar: React.FC = () => {
-  const [isMenuOpened, setIsMenuOpened] = useState(false);
-  const [lang, toggleLang] = useToggleLanguage();
-  const { theme, toggleTheme } = useThemeStore();
-  const [mounted, setMounted] = useState(false);
-  const t = useTranslations();
-
+  const [isMenuOpened, setIsMenuOpened] = useState(false)
+  const [lang, toggleLang] = useToggleLanguage()
+  const { theme, toggleTheme } = useThemeStore()
+  const [mounted, setMounted] = useState(false)
+  const t = useTranslations()
+  const locale = useLocale()
   const navItems = [
     { label: t("NavBar.Home"), href: "/" },
     { label: t("NavBar.ContactUS"), href: "/contact-us" },
-    { label: t("NavBar.Language"), href: "/", onClick: toggleLang },
-  ];
+  ]
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Define Nav Items
+    setMounted(true)
+  }, [])
 
   return (
     <div className="flex flex-col mb-10">
       <div className="h-12 bg-whitesomke dark:bg-zinc-800 dark:drop-shadow-md drop-shadow-sm px-7 lg:px-16 z-10">
         <div className="h-12 text-lg flex container justify-between items-center mx-auto">
-          <Link href="/" className="font-semibold text-maingreen dark:text-zinc-200">
+          <IntlLink href="/" className="font-semibold text-maingreen dark:text-zinc-200">
             {t("title")}
-          </Link>
+          </IntlLink>
 
-          <ul className="gap-12 hidden lg:flex dark:text-zinc-100">
-            {navItems.map(({ label, href, onClick }) => (
-              <Link key={label} href={href} onClick={onClick}>
+          <ul className="gap-12 hidden lg:flex dark:text-zinc-100 ">
+            {navItems.map(({ label, href }) => (
+              <IntlLink className="hover:text-maingreen" key={label} href={href}>
                 {label}
-              </Link>
+              </IntlLink>
             ))}
+
+            <button
+              onClick={toggleLang}
+              className="dark:text-zinc-100 bg-transparent transition-all ease-in-out cursor-pointer hover:text-maingreen"
+            >
+              {t("NavBar.Language")}
+            </button>
 
             <motion.button
               onClick={toggleTheme}
-              className="text-2xl dark:text-zinc-100 bg-transparent transition-all ease-in-out"
+              className="cursor-pointer text-2xl dark:text-zinc-100 bg-transparent transition-all ease-in-out hover:text-maingreen"
             >
               {mounted ? (
                 <AnimatePresence mode="wait">
@@ -83,11 +89,18 @@ const NavBar: React.FC = () => {
           </motion.button>
         </div>
       </div>
-
-      {/* Mobile Nav */}
-     <MoblieNav isMenuOpened={isMenuOpened} navItems={navItems} setIsMenuOpened={setIsMenuOpened} t={t} theme={theme} toggleTheme={toggleTheme}/>
+      <MoblieNav
+        isMenuOpened={isMenuOpened}
+        navItems={navItems}
+        setIsMenuOpened={setIsMenuOpened}
+        t={t}
+        locale={locale}
+        theme={theme}
+        toggleTheme={toggleTheme}
+      />
     </div>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar
+

@@ -5,6 +5,10 @@ import { routing } from "@/i18n/routing";
 import NavBar from "@/Components/NavBar";
 import { Tajawal } from "next/font/google";
 import ThemeProvider from "@/Components/ThemeProvider";
+import AnimatedWaves from "@/Components/Ui/Waves";
+import "./globals.css"
+
+// import { cookies } from "next/headers";
 
 const tajawal = Tajawal({
   subsets: ["arabic", "latin"],
@@ -24,6 +28,7 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
+  // const localee = (await cookies()).get("NEXT_LOCALE")?.value
 
   return (
     <html
@@ -31,11 +36,13 @@ export default async function LocaleLayout({
       lang={locale}
       dir={locale === "ar" ? "rtl" : "ltr"}
     >
-      <body className="dark:bg-zinc-900 bg-background">
+      <body key={locale} className="dark:bg-zinc-900 bg-background overflow-x-hidden">
         <NextIntlClientProvider messages={messages}>
-        <ThemeProvider />
+          <ThemeProvider />
+          {/* {localee} */}
           <NavBar />
           <div className="container mx-auto">{children}</div>
+          <AnimatedWaves />
         </NextIntlClientProvider>
       </body>
     </html>
