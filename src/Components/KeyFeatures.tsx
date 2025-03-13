@@ -1,14 +1,12 @@
-import Link from "next/link";
-import Image from "next/image";
-import { FaQuran } from "react-icons/fa";
 import img2 from "../../public/img2.png";
 import img4 from "../../public/ramadan.png";
 import { HTMLAttributes, JSX } from "react";
 import { twMerge } from "tailwind-merge";
-import { FaBookQuran, FaLocationPin } from "react-icons/fa6";
+import { FaBookQuran } from "react-icons/fa6";
 import { MdLocationPin, MdOutlineMosque } from "react-icons/md";
 import { GiPrayer } from "react-icons/gi";
 import { useTranslations } from "next-intl";
+import { Link as IntlLink } from "@/i18n/navigation"
 
 interface KeyFeaturesCardProps {
   href: string;
@@ -28,14 +26,14 @@ const KeyFeaturesCard: React.FC<KeyFeaturesCardProps> = ({
   className
 }) => {
   return (
-    <Link
+    <IntlLink
       href={href}
       className={twMerge(`w-full rounded-3xl font-semibold text-darkgrey dark:text-darkmode-lighttext overflow-hidden h-48 mx-auto mt-5 px-5 flex items-center justify-between drop-shadow-md bg-white dark:bg-darkmode-light hover:bg-maingreen hover:text-white transition-colors ease-in-out duration-200 delay-75 text-center` , className)}
     >
       <div className={`text-sm md:text-lg lg:text-xl `}>{text}</div>
       {icon && icon}
       
-    </Link>
+    </IntlLink>
   );
 };
 
@@ -63,10 +61,10 @@ const KeyFeatures: React.FC = () => {
         />
 
         <KeyFeaturesCard
-          href="/PrayerTimes"
+          href="/prayer-times"
           text={t('PrayerTimes')}
           bgColor="bg-maingreen"
-          textColor="text-white"
+          textColor="text-whiste"
           imgSrc={img2}
           icon={
             <MdLocationPin className=" text-9xl scale-125 rtl:left-2 ltr:right-0 absolute -rotate-12 opacity-10 dark:text-darkmode-lighttext" />

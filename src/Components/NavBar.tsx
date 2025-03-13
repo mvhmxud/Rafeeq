@@ -72,6 +72,9 @@ const NavBar: React.FC = () => {
           </ul>
 
           <motion.button
+         role="button"
+         aria-labelledby="menu"
+         accessKey="m"
             onClick={() => setIsMenuOpened((prev) => !prev)}
             className="block lg:hidden text-2xl dark:text-zinc-100 transition-all"
           >
@@ -97,6 +100,7 @@ const NavBar: React.FC = () => {
         locale={locale}
         theme={theme}
         toggleTheme={toggleTheme}
+        toggleLang={toggleLang}
       />
     </div>
   )

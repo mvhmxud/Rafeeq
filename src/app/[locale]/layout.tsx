@@ -36,7 +36,8 @@ export default async function LocaleLayout({
       lang={locale}
       dir={locale === "ar" ? "rtl" : "ltr"}
     >
-      <body key={locale} className="dark:bg-zinc-900 bg-background overflow-x-hidden">
+      <title>Rafeeq – Your Ultimate Islamic Companion</title>
+      <body key={locale} className="dark:bg-zinc-900 bg-background overflow-x-hidden flex flex-col min-h-screen">
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider />
           {/* {localee} */}
