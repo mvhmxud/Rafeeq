@@ -1,27 +1,30 @@
-import React from "react";
+"use client"
 
-import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
-import { Formats, TranslationValues } from "next-intl";
+import type React from "react"
+
+import { AnimatePresence, motion } from "framer-motion"
+import type { Formats, TranslationValues } from "next-intl"
+import { Link } from "@/i18n/navigation"
 
 interface MobileNavProps {
-  isMenuOpened: boolean;
+  isMenuOpened: boolean
   navItems: (
     | {
-        label: string;
-        href: string;
-        onClick?: undefined;
+        label: string
+        href: string
+        onClick?: undefined
       }
     | {
-        label: string;
-        href: string;
-        onClick: () => void;
+        label: string
+        href: string
+        onClick: () => void
       }
-  )[];
-  setIsMenuOpened: (val: boolean) => void;
-  toggleTheme: () => void;
-  theme: string;
-  t: (key: string, values?: TranslationValues, formats?: Formats) => string;
+  )[]
+  setIsMenuOpened: (val: boolean) => void
+  toggleTheme: () => void
+  locale: string
+  theme: string
+  t: (key: string, values?: TranslationValues, formats?: Formats) => string
 }
 const MoblieNav: React.FC<MobileNavProps> = ({
   isMenuOpened,
@@ -46,8 +49,8 @@ const MoblieNav: React.FC<MobileNavProps> = ({
               key={label}
               href={href}
               onClick={() => {
-                setIsMenuOpened(false);
-                onClick?.();
+                setIsMenuOpened(false)
+                onClick?.()
               }}
               className="w-full text-center p-2 hover:bg-lite-maingreen dark:hover:bg-zinc-900 transition-colors ease-in-out delay-75 rounded-md"
             >
@@ -56,20 +59,20 @@ const MoblieNav: React.FC<MobileNavProps> = ({
           ))}
 
           {/* Dark Mode Toggle */}
-          <Link
+          <button
             onClick={() => {
-              setIsMenuOpened(false);
-              toggleTheme();
+              setIsMenuOpened(false)
+              toggleTheme()
             }}
-            href="#"
             className="w-full text-center p-2 hover:bg-lite-maingreen dark:hover:bg-zinc-900 transition-colors ease-in-out delay-75 rounded-md"
           >
             {theme === "dark" ? t("NavBar.LightMode") : t("NavBar.DarkMode")}
-          </Link>
+          </button>
         </motion.ul>
       )}
     </AnimatePresence>
-  );
-};
+  )
+}
 
-export default MoblieNav;
+export default MoblieNav
+

@@ -7,26 +7,22 @@
         "DarkMode" : "Switch to Dark Mode",
         "Language"  : "العربية"
     },
-    "HeroBanner":{
-        "PrayerTimes"  : "Prayer Times",
-        "ListenTo" : "Listen to",
-        "Quran"  : "Quran",
-        "ByYour" : "by your" ,
-         "FavouriteReciters" : "Favourite Reciters",
-         "More" : "and more!"
-    },
-    "QuickLinks" : {
-        "title" : "Quick Links",
-        "ListenTo" : "Listen to",
-        "Quran"  : "Quran",
-        "ByYour" : "by your" ,
-         "FavouriteReciters" : "favourite reciters",
-         "Get" : "Get",
-         "PrayerTimes"  : "prayer times",
-         "ForYourLocation"  :"for your current location .",
-        "Soon" : "Soon"
-
-    }
+   "HeroBanner": {
+  "MainMessage": "All you need in Rafeeq!",
+  "PrayerTimes": "Accurate prayer times",
+  "Quran": "Quran with your favorite reciters",
+  "nearstMasjid": "Find the nearest mosque",
+  "AzkarDoaa": "Daily supplications and remembrances"
+}
+,
+"KeyFeatures": {
+  "title": "Rafeeq Features",
+  "desc": "Everything you need in one app to simplify your daily worship, from prayer times to Quran, supplications, and more.",
+  "Quran": "Listen to the Holy Quran with your favorite reciters in a seamless experience.",
+  "PrayerTimes": "Get accurate prayer times based on your location.",
+  "nearstMasjid": "Find the nearest mosque to perform your prayers easily.",
+  "AzkarDoaa": "A trusted collection of supplications and prophetic hadiths in one place."
+}
 ,
 "Quran":{
     "header" : "All Reciters",
