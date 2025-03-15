@@ -1,6 +1,6 @@
 import React from "react";
-import NextPrayerCountdown from "./NextSalat";
-import HijriDate from "./HijriDate";
+import NextPrayerCountdown from "./DetailsSection/NextSalat";
+import HijriDate from "./DetailsSection/HijriDate";
 
 const DetailsSection = () => {
   return (
