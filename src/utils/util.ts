@@ -11,3 +11,10 @@ export const formatDate = (date: Date): string => {
   const year = date.getFullYear();
   return `${day}-${month}-${year}`;
 };
+
+export const getSecondsUntilNextDay = () => {
+  const now = new Date();
+  const nextDay = new Date(now);
+  nextDay.setHours(24, 0, 0, 0);
+  return Math.floor((nextDay.getTime() - now.getTime()) / 1000);
+};

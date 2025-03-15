@@ -9,9 +9,8 @@ import { Pagination } from "swiper/modules";
 import LocationPremission from "@/Components/PrayerTimes/LocationPremission";
 import PrayerTimesSkeleton from "@/Components/PrayerTimes/PrayerTimesLoadingSkeleton";
 import axios from "axios";
-import { formatDate } from "@/utils/util";
 
-interface LocationInterface {
+export interface LocationInterface {
   lat: number;
   long: number;
 }
@@ -23,17 +22,16 @@ const Page = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const today = new Date();
-  const startDate = formatDate(today);
-  const endDate = new Date();
-  endDate.setDate(today.getDate() + 10);
-  const endDateString = formatDate(endDate);
+  const dayOfMonthIndex = today.getDate() - 1;
 
   const fetchData = async ({ lat, long }: LocationInterface) => {
     try {
+      const month = today.getMonth() + 1;
+      const year = today.getFullYear();
       const res = await axios.get(
-        `https://api.aladhan.com/v1/calendar/from/${startDate}/to/${endDateString}?latitude=${lat}&longitude=${long}&method=2`
+        `${process.env.NEXT_PUBLIC_ALADHAN_API_URL}/${year}/${month}?latitude=${lat}&longitude=${long}&method=5`
       );
-      setPrayerTimes(res.data.data); // Store fetched data
+      setPrayerTimes(res.data.data);
     } catch (err) {
       console.error("Error fetching prayer times:", err);
       setError("Failed to fetch prayer times. Please try again.");
@@ -42,13 +40,19 @@ const Page = () => {
     }
   };
 
+  const saveLocation = (loc: LocationInterface) => {
+    localStorage.setItem("userLocation", JSON.stringify(loc));
+    setLocation(loc); // Update state
+  };
+
   const getUsersLocation = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setLocation({
+        const loc = {
           lat: position.coords.latitude,
           long: position.coords.longitude,
-        });
+        };
+        saveLocation(loc);
       },
       (err) => {
         if (err.code === 1) {
@@ -64,16 +68,13 @@ const Page = () => {
   };
 
   useEffect(() => {
-    navigator.permissions
-      .query({ name: "geolocation" as PermissionName })
-      .then((permissionStatus) => {
-        permissionStatus.onchange = () => {
-          if (permissionStatus.state === "granted") {
-            window.location.reload();
-          }
-        };
-      });
-    getUsersLocation();
+    const storedLocation = localStorage.getItem("userLocation");
+
+    if (storedLocation) {
+      setLocation(JSON.parse(storedLocation));
+    } else {
+      getUsersLocation();
+    }
   }, []);
 
   useEffect(() => {
@@ -90,7 +91,7 @@ const Page = () => {
       pagination={{ clickable: true }}
       modules={[Pagination]}
       slidesPerView={1}
-      direction="horizontal"
+      initialSlide={dayOfMonthIndex}
     >
       {prayerTimes.map((day, idx) => (
         <SwiperSlide key={idx}>

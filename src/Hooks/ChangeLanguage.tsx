@@ -1,8 +1,7 @@
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
 
 const useToggleLanguage = (): [string, () => void] => {
-  const t = useTranslations();
   const router = useRouter();
   const locale = useLocale();
   const pathname = usePathname();

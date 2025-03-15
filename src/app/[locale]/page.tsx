@@ -4,11 +4,14 @@ import QuranVerse from "@/Components/QuranVerse";
 import DetailsSection from "@/Components/DetailsSection";
 import KeyFeatures from "@/Components/KeyFeatures";
 
-export default function HomePage() {
+
+
+export default async function HomePage() {
+
   return (
     <div className="flex flex-col gap-5">
       <HeroBanner />
-      <DetailsSection />
+      <DetailsSection  />
       <KeyFeatures />
       <QuranVerse />
     </div>
