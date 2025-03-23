@@ -6,7 +6,10 @@ import NavBar from "@/Components/NavBar";
 import { Tajawal } from "next/font/google";
 import ThemeProvider from "@/Components/ThemeProvider";
 import AnimatedWaves from "@/Components/Ui/Waves";
-import "./globals.css"
+import "./globals.css";
+import AudioProvider from "@/Components/AudioProvider";
+import "test-tunez/dist/index.css";
+import AudioPlayerComp from "@/Components/AudioPlayer";
 
 // import { cookies } from "next/headers";
 
@@ -37,12 +40,20 @@ export default async function LocaleLayout({
       dir={locale === "ar" ? "rtl" : "ltr"}
     >
       <title>Rafeeq – Your Ultimate Islamic Companion</title>
-      <body key={locale} className="dark:bg-zinc-900 bg-background overflow-x-hidden flex flex-col min-h-screen">
+      <body
+        key={locale}
+        className="dark:bg-zinc-900 bg-background overflow-x-hidden flex flex-col min-h-screen"
+      >
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider />
           {/* {localee} */}
           <NavBar />
-          <div className="container mx-auto">{children}</div>
+          <AudioProvider>
+            <div className="container mx-auto">
+              {children}
+            </div>
+            <AudioPlayerComp/>
+          </AudioProvider>
           <AnimatedWaves />
         </NextIntlClientProvider>
       </body>

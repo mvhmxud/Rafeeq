@@ -42,7 +42,7 @@ const Page = () => {
 
   const saveLocation = (loc: LocationInterface) => {
     localStorage.setItem("userLocation", JSON.stringify(loc));
-    setLocation(loc); // Update state
+    setLocation(loc); 
   };
 
   const getUsersLocation = () => {
