@@ -11,20 +11,18 @@ type NextPrayer = {
   time: string;
 };
 
-const today = new Date();
-
+let timezone: string;
 const getNextPrayer = async (): Promise<PrayerTimings> => {
   try {
     const locationRes = await fetch("https://ipapi.co/json/", {
       cache: "force-cache",
     });
     const location = await locationRes.json();
-
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_ALADHAN_API_URL_v1}/nextPrayer/${formatDate(today)}?latitude=${location.latitude}&longitude=${location.longitude}$method=5`
+      `${process.env.NEXT_PUBLIC_ALADHAN_API_URL_v1}/nextPrayer/${formatDate(new Date())}?latitude=${location.latitude}&longitude=${location.longitude}$method=5`
     );
-
     const prayerData = await res.json();
+    timezone = prayerData.data.meta.timezone;
     return prayerData.data?.timings;
   } catch (error) {
     console.error("Error while fetching next prayer:", error);
@@ -37,6 +35,9 @@ const calculateRemainingTime = (prayerTime: string): number => {
   const [hours, minutes] = prayerTime.split(":").map(Number);
   const prayerDateTime = new Date();
   prayerDateTime.setHours(hours, minutes, 0, 0);
+  if (prayerDateTime < now) {
+    prayerDateTime.setDate(prayerDateTime.getDate() + 1);
+  }
   return Math.floor((prayerDateTime.getTime() - now.getTime()) / 1000);
 };
 
@@ -52,6 +53,7 @@ export default function NextPrayerCountdown() {
       const timings = await getNextPrayer();
       const nextPrayerName = Object.keys(timings)[0];
       const nextPrayerTime = timings[nextPrayerName];
+      console.log(calculateRemainingTime(nextPrayerTime));
       setNextPrayer({ name: nextPrayerName, time: nextPrayerTime });
       setRemainingTime(calculateRemainingTime(nextPrayerTime));
     };
@@ -84,9 +86,9 @@ export default function NextPrayerCountdown() {
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
             الوقت المتبقي
           </p>
-          <div className="flex justify-center gap-4 text-3xl font-bold">
+          <div className="flex justify-center gap-4 text-3xl font-bold rtl:flex-row-reverse">
             <div className="flex flex-col items-center">
-              <span className="text-darkmode-light dark:text-darkmode-lighttext">
+              <span className="text-darkmode-light dark:text-darkmode-lighttext font-mono w-10 text-center">
                 {String(hours).padStart(2, "0")}
               </span>
               <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -97,7 +99,7 @@ export default function NextPrayerCountdown() {
               :
             </span>
             <div className="flex flex-col items-center">
-              <span className="text-darkmode-light dark:text-darkmode-lighttext">
+              <span className="text-darkmode-light dark:text-darkmode-lighttext font-mono w-10 text-center">
                 {String(minutes).padStart(2, "0")}
               </span>
               <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -108,7 +110,7 @@ export default function NextPrayerCountdown() {
               :
             </span>
             <div className="flex flex-col items-center">
-              <span className="text-darkmode-light dark:text-darkmode-lighttext">
+              <span className="text-darkmode-light dark:text-darkmode-lighttext font-mono w-10 text-center">
                 {String(seconds).padStart(2, "0")}
               </span>
               <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -120,7 +122,7 @@ export default function NextPrayerCountdown() {
 
         <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm">
           <MapPin className="h-4 w-4 mr-1" />
-          <span>Africa/Cairo</span>
+          <span>{timezone}</span>
         </div>
       </div>
     </div>

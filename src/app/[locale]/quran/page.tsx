@@ -1,9 +1,8 @@
-import React from 'react'
+import { getReciters } from "./getReciters";
+import QuranRecitersList from "./RecitersList";
 
-const page = () => {
-  return (
-    <div>Quran</div>
-  )
+export default async function QuranRecitersPage() {
+  const reciters = await getReciters();
+
+  return <QuranRecitersList reciters={reciters} />;
 }
-
-export default page

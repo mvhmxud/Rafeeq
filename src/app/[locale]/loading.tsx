@@ -1,9 +1,10 @@
-  import React from 'react'
+import SquareLoder from "@/Components/Ui/Loader";
+import React from "react";
 
 const loading = () => {
-  return (
-    <div>loading...</div>
-  )
-}
+  return  <div className="w-full min-h-[100vh] grid place-content-center">
+  <SquareLoder />;
+  </div>
+};
 
-export default loading
+export default loading;

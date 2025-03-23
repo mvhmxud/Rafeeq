@@ -53,7 +53,7 @@ const KeyFeatures: React.FC = () => {
 
       <div className="grid lg:grid-cols-3 grid-cols-2 gap-3  ">
         <KeyFeaturesCard
-          href="/Quran"
+          href="/quran"
           text={t('Quran')}
           icon={
             <FaBookQuran className=" text-9xl scale-125 rtl:left-2 ltr:right-0 absolute -rotate-12 opacity-10 dark:text-darkmode-lighttext" />
@@ -72,7 +72,7 @@ const KeyFeatures: React.FC = () => {
         />
 
         <KeyFeaturesCard
-          href="/supplications"
+          href="/nearest-masjid"
           text={t('nearstMasjid')}
           imgSrc={img4}
           icon={
