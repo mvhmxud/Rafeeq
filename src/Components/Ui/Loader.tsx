@@ -1,6 +1,6 @@
 import React from "react";
 
-const SquareLoder = () => {
+const SquareLoader = () => {
   return (
     <svg className="ldr-container" viewBox="0 0 35 35" height="35" width="35">
       <rect
@@ -26,4 +26,4 @@ const SquareLoder = () => {
   );
 };
 
-export default SquareLoder;
+export default SquareLoader;

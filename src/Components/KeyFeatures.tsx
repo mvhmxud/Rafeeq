@@ -79,7 +79,7 @@ const KeyFeatures: React.FC = () => {
             <MdOutlineMosque className=" text-9xl scale-125 rtl:left-2 ltr:right-0 absolute -rotate-12 opacity-10 dark:text-darkmode-lighttext" />          }
         />
         <KeyFeaturesCard
-          href="/supplications"
+          href="/hadith-doaa"
           text={t('AzkarDoaa')}
           imgSrc={img4}
           className="lg:col-span-full"
