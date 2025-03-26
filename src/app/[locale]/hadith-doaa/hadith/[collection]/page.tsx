@@ -1,6 +1,7 @@
 import { HadithCard as HadithBookCard } from "@/Components/Hadith/Card";
 import { cookies } from "next/headers";
 import { Collection as CollectionInfo } from "../page";
+import { notFound } from "next/navigation";
 
 const fetchCollectionBooks = async (collectionName: string) => {
   try {
@@ -17,11 +18,12 @@ const fetchCollectionBooks = async (collectionName: string) => {
         },
       }
     );
-    if (!res.ok) throw new Error("Failed to fetch collections");
+    if (!res.ok) return null;
     const { data } = await res.json();
     return data;
   } catch (error) {
-    console.log("error while fetching Collections", error);
+    console.error("Error while fetching collections:", error);
+    return null;
   }
 };
 
@@ -40,11 +42,12 @@ const fetchCollectionName = async (collectionName: string) => {
         },
       }
     );
-    if (!res.ok) throw new Error("Failed to fetch collections");
+    if (!res.ok) return null;
     const { collection } = await res.json();
     return collection;
   } catch (error) {
-    console.log("error while fetching Collections", error);
+    console.error("Error while fetching collection name:", error);
+    return null;
   }
 };
 
@@ -62,19 +65,27 @@ interface HadithBook {
 
 const Page = async ({ params }: { params: { collection: string } }) => {
   const localee = (await cookies()).get("NEXT_LOCALE")?.value;
-  const { collection } = await params;
+  const { collection } = params;
 
-  const [hadithBooks, collectionInfo]: [HadithBook[], CollectionInfo[]] =
-    await Promise.all([
-      fetchCollectionBooks(collection),
-      fetchCollectionName(collection),
-    ]);
+  const [hadithBooks, collectionInfo]: [
+    HadithBook[] | null,
+    CollectionInfo[] | null,
+  ] = await Promise.all([
+    fetchCollectionBooks(collection),
+    fetchCollectionName(collection),
+  ]);
+
+  if (!hadithBooks || !collectionInfo) {
+    return notFound();
+  }
+
   return (
     <div className="inner-container mx-auto px-4 py-12">
       <div className=" mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4 text-darkgrey dark:text-darkmode-lighttext">
-            {collectionInfo.filter((colLang) => colLang.lang === localee)[0].title}
+            {collectionInfo?.filter((colLang) => colLang.lang === localee)[0]
+              ?.title || "Unknown Collection"}
           </h1>
           <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
             مجموعة من أهم كتب الحديث النبوي الشريف
@@ -86,7 +97,8 @@ const Page = async ({ params }: { params: { collection: string } }) => {
               key={idx}
               id={book.bookNumber}
               title={
-                book.book.filter((colLang) => colLang.lang == localee)[0].name
+                book.book.filter((colLang) => colLang.lang == localee)[0]
+                  ?.name || "Unknown Book"
               }
               href={`${collection}/${book.bookNumber}`}
               type="collection"

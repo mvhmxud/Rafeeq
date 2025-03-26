@@ -7,7 +7,7 @@ const HeroBanner = () => {
   const t = useTranslations();
   
   return (
-    <div className="inner-container overflow-hidden mx-auto rounded-lg bg-whitesomke drop-shadow-sm lg:h-64 dark:bg-zinc-800 flex flex-col lg:flex-row lg:justify-between items-center p-5">
+    <div className="inner-container overflow-hidden mx-auto rounded-lg bg-whitesomke dark:bg-gradient-to-br dark:from-darkmode-light dark:to-darkmode-dark border-gray-200 dark:border-darkmode-light drop-shadow-sm lg:h-64 dark:bg-zinc-800 flex flex-col lg:flex-row lg:justify-between items-center p-5">
       <div className=" order-2 lg:order-1 flex flex-col items-center justify-center gap-1 flex-1/2 dark:text-zinc-50 text-pretty text-lg lg:text-3xl text-center font-semibold w-full">
         <span className="">{t("HeroBanner.MainMessage")}</span>
         <div className="w-full flex justify-center overflow-hidden ">

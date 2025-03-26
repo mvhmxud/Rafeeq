@@ -3,7 +3,6 @@ import HeroBanner from "../../Components/HeroBanner";
 import QuranVerse from "@/Components/QuranVerse";
 import DetailsSection from "@/Components/DetailsSection/DetailsSection";
 import KeyFeatures from "@/Components/KeyFeatures";
-import AudioPlayer from "test-tunez";
 
 export default async function HomePage() {
   return (

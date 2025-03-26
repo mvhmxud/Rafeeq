@@ -7,6 +7,7 @@ import { cookies } from "next/headers";
 import { Link } from "@/i18n/navigation";
 import { Collection } from "../../page";
 import HadithPagination from "@/Components/Hadith/hadithPagination";
+import { notFound } from "next/navigation";
 
 interface Book {
   lang: string;
@@ -40,11 +41,12 @@ const fetchCollectionsBookHadiths = async (
         },
       }
     );
-    if (!res.ok) throw new Error("Failed to fetch collections");
+    if (!res.ok) return null;
     const data = await res.json();
     return data;
   } catch (error) {
-    console.log("error while fetching Collections", error);
+    console.error("Error while fetching Hadiths:", error);
+    return null;
   }
 };
 
@@ -63,11 +65,12 @@ const fetchCollectionName = async (collectionName: string) => {
         },
       }
     );
-    if (!res.ok) throw new Error("Failed to fetch collections");
+    if (!res.ok) return null;
     const { collection } = await res.json();
-    return collection;
+    return collection.length ? collection : null;
   } catch (error) {
-    console.log("error while fetching Collections", error);
+    console.error("Error while fetching collection name:", error);
+    return null;
   }
 };
 
@@ -89,11 +92,12 @@ const fetchCollectionBookName = async (
         },
       }
     );
-    if (!res.ok) throw new Error("Failed to fetch collections");
+    if (!res.ok) return null;
     const { book } = await res.json();
-    return book;
+    return book.length ? book : null;
   } catch (error) {
-    console.log("error while fetching Collections", error);
+    console.error("Error while fetching book name:", error);
+    return null;
   }
 };
 
@@ -105,17 +109,23 @@ export default async function HadithsPage({
   searchParams: Record<string, string | string[] | undefined>;
 }) {
   const localee = (await cookies()).get("NEXT_LOCALE")?.value;
-  const page = (await searchParams.page) ? Number(searchParams.page) : 1;
+  const searchParam = await searchParams;
+  const page = searchParam.page ? Number(searchParam.page) : 1;
   const { collection, bookId } = await params;
+
   const [hadithList, collectionDetails, books]: [
-    hadithList: HadithResponse,
-    collectionDetails: Collection[],
-    books: Book[],
+    HadithResponse | null,
+    Collection[] | null,
+    Book[] | null,
   ] = await Promise.all([
-    fetchCollectionsBookHadiths(collection, bookId, page ),
+    fetchCollectionsBookHadiths(collection, bookId, page),
     fetchCollectionName(collection),
     fetchCollectionBookName(collection, bookId),
   ]);
+
+  if (!hadithList || !collectionDetails || !books) {
+    return notFound();
+  }
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -123,21 +133,24 @@ export default async function HadithsPage({
         <div className="mb-10">
           <Link
             href={`/hadith-doaa/hadith/${collection}`}
-            className="inline-flex  gap-2 items-center text-gray-500 dark:text-gray-400 hover:text-maingreen dark:hover:text-maingreen mb-6 transition-colors"
+            className="inline-flex gap-2 items-center text-gray-500 dark:text-gray-400 hover:text-maingreen dark:hover:text-maingreen mb-6 transition-colors"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             <span>
               العودة إلى{" "}
-              {collectionDetails.filter((col) => col.lang === localee)[0].title}
+              {collectionDetails.find((col) => col.lang === localee)?.title ??
+                "Unknown Collection"}
             </span>
           </Link>
 
           <div className="text-center mb-10">
             <div className="text-sm text-maingreen mb-2">
-              {collectionDetails.filter((col) => col.lang === localee)[0].title}
+              {collectionDetails.find((col) => col.lang === localee)?.title ??
+                "Unknown Collection"}
             </div>
             <h1 className="text-3xl font-bold mb-4 text-darkgrey dark:text-darkmode-lighttext">
-              {books.filter((books) => books.lang === localee)[0].name}
+              {books.find((book) => book.lang === localee)?.name ??
+                "Unknown Book"}
             </h1>
             <Badge
               variant="outline"
@@ -151,8 +164,8 @@ export default async function HadithsPage({
             {hadithList.data.map((hadit, idx) => (
               <HadithDetailsCard
                 collection={
-                  collectionDetails.filter((col) => col.lang === localee)[0]
-                    .title
+                  collectionDetails.find((col) => col.lang === localee)
+                    ?.title ?? "Unknown Collection"
                 }
                 locale={localee || "ar"}
                 key={idx}
@@ -169,9 +182,7 @@ export default async function HadithsPage({
             next={hadithList.next}
             prev={hadithList.previous}
           />
-        ) : (
-          ""
-        )}
+        ) : null}
       </div>
     </div>
   );
