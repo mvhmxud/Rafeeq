@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft } from "lucide-react";
 import { Badge } from "@/Components/Ui/badge";
@@ -8,25 +8,64 @@ import { QuranList } from "@/utils/CONSTANTS";
 import SurahCard from "@/Components/Quran/SurahCard";
 import { useDebounce } from "use-debounce";
 import SearchInput from "@/Components/SearchInput";
-import { useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
+import SquareLoader from "@/Components/Ui/Loader";
+import { Reciter } from "../RecitersList";
 
 export default function ReciterPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery] = useDebounce(searchQuery, 300);
+  const [reciter, setReciter] = useState<Reciter | null>(null);
+  const [loading, setLoading] = useState(true);
   const params = useParams();
+  const reciterId = Number(params.reciterId);
+  const locale = params.locale || "ar";
 
-  const reciterId = params.reciterId;
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch(
+          "https://api.quran.com/api/v4/resources/recitations?language=ar"
+        );
+        const { recitations } = await res.json();
+        const currReciter = recitations.find((rec) => rec.id === reciterId);
+        if (!currReciter) {
+          notFound();
+          return;
+        }
+
+        setReciter(currReciter);
+      } catch (error) {
+        console.log("error message:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, [reciterId]);
+
   const filteredSurahs = useMemo(() => {
     if (!debouncedSearchQuery) return QuranList;
     return QuranList.filter(
       (surah) =>
         surah.name.includes(debouncedSearchQuery) ||
-        surah.arabicName
+        surah.name
           .toLowerCase()
           .includes(debouncedSearchQuery.toLowerCase()) ||
         surah.id.toString().includes(debouncedSearchQuery)
     );
   }, [debouncedSearchQuery]);
+
+  if (loading) {
+    return (
+      <div className="w-full min-h-[100vh] grid place-content-center">
+        <SquareLoader />
+      </div>
+    );
+  }
+
+  if (!reciter) return notFound();
 
   return (
     <div className="inner-container mx-auto px-4 py-12">
@@ -48,7 +87,9 @@ export default function ReciterPage() {
               قارئ القرآن الكريم
             </Badge>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-maingreen to-darkgreen bg-clip-text text-transparent">
-              اسم القارئ
+              {locale === "ar"
+                ? reciter.translated_name?.name || reciter.reciter_name
+                : reciter.reciter_name}
             </h1>
           </div>
         </div>
@@ -61,7 +102,7 @@ export default function ReciterPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {filteredSurahs.map((surah) => (
-            <SurahCard key={surah.id} reciterId={reciterId} surah={surah} />
+            <SurahCard locale={locale} key={surah.id} reciterId={reciterId} surah={surah} />
           ))}
         </div>
 

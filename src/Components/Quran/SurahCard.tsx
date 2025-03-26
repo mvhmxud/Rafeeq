@@ -13,19 +13,26 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "../Ui/card";
 import { handleDownloadSurah } from "@/utils/util";
-import { UseTunez } from "test-tunez";
+import { UseTunez } from "tunez";
 import axios from "axios";
-import { ParamValue } from "next/dist/server/request/params";
 
 interface SurahCardProps {
   id: number;
   name: string;
-  arabicName: string;
+  englishName: string;
   verses: number;
 }
 
 const SurahCard = React.memo(
-  ({ surah, reciterId }: { reciterId: ParamValue; surah: SurahCardProps }) => {
+  ({
+    surah,
+    reciterId,
+    locale,
+  }: {
+    reciterId: number;
+    surah: SurahCardProps;
+    locale: string | string[];
+  }) => {
     const { playTrack } = UseTunez();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -60,7 +67,7 @@ const SurahCard = React.memo(
           playTrack({
             author: "Rafeeq",
             src: audioUrl,
-            title: surah.arabicName,
+            title: locale == "ar" ? surah.name : surah.englishName,
             thumbnail: undefined,
           });
         } catch (err) {
@@ -69,7 +76,7 @@ const SurahCard = React.memo(
           setLoading(false);
         }
       },
-      [playTrack, reciterId] 
+      [playTrack, reciterId]
     );
 
     return (
@@ -84,10 +91,10 @@ const SurahCard = React.memo(
             </div>
             <div>
               <h3 className="font-medium text-darkgrey dark:text-darkmode-lighttext group-hover:text-maingreen transition-colors">
-                {surah.name}
+                {locale === "ar" ? surah.name : surah.englishName}
               </h3>
               <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mt-1">
-                <span>{surah.arabicName}</span>
+                <span> {locale === "ar" ? surah.englishName : surah.name}</span>
                 <span className="mx-2">•</span>
                 <span>{surah.verses} آية</span>
               </div>

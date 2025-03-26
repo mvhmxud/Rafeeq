@@ -78,7 +78,7 @@ export default function NextPrayerCountdown() {
       </div>
     );
   return (
-    <div className="inner-container mx-auto rounded-2xl p-6 bg-white dark:bg-zinc-800 shadow-md h-56">
+    <div className="inner-container mx-auto rounded-2xl p-6 bg-whitesomke dark:bg-gradient-to-br dark:from-darkmode-light dark:to-darkmode-dark border-gray-200 dark:border-darkmode-light dark:bg-zinc-800 shadow-md h-56">
       <div className="flex flex-col items-center space-y-4">
         <h2 className="text-2xl font-bold text-maingreen">{nextPrayer.name}</h2>
 

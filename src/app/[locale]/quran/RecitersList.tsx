@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/Components/Ui/card";
 import { Search, BookOpen } from "lucide-react";
 import { useParams } from "next/navigation";
 
-interface Reciter {
+export interface Reciter {
   id: number;
   reciter_name: string;
   style: string | null;

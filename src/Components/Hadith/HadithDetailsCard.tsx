@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/Components/Ui/card";
 import { formatHadithText } from "@/utils/util";
-import { BookText, Copy } from "lucide-react";
-import { Skeleton } from "@/Components/Ui/skeleton"; // Import a Skeleton component
+import { BookText, Copy, Check } from "lucide-react";
+import { Skeleton } from "@/Components/Ui/skeleton";
 
 interface HadithDetailsCardProps {
   hadithEntry: HadithEntry;
@@ -43,6 +43,7 @@ const HadithDetailsCard: React.FC<HadithDetailsCardProps> = ({
 
   const [formattedText, setFormattedText] = useState<string | null>(null);
   const [localeHadith, setLocaleHadith] = useState<Hadith | null>(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const foundHadith = hadith.find((h) => h.lang === locale) || null;
@@ -58,6 +59,17 @@ const HadithDetailsCard: React.FC<HadithDetailsCardProps> = ({
       );
     }
   }, [hadith, locale]);
+
+  const handleCopy = () => {
+    if (!localeHadith?.body) return;
+
+    navigator.clipboard.writeText(localeHadith.body);
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 1000);
+  };
 
   return (
     <Card className="text-left bg-white dark:bg-gradient-to-br dark:from-darkmode-light dark:to-darkmode-dark border-gray-200 dark:border-darkmode-light hover:border-maingreen/50 transition-all duration-300">
@@ -79,16 +91,24 @@ const HadithDetailsCard: React.FC<HadithDetailsCardProps> = ({
                 </span>
                 <span className="mx-2 text-gray-400">•</span>
                 <span className="text-xs px-2 py-0.5 bg-maingreen/10 text-maingreen rounded-full">
-                  {localeHadith?.grades?.[0]?.grade ||
-                    (locale === "ar" ? "غير مصنف" : "Unclassified")}
+                  {localeHadith?.grades?.[0]?.grade}
                 </span>
               </div>
             </div>
           </div>
 
-          <button className="h-8 w-8 rounded-full hover:bg-maingreen/10 text-gray-500 dark:text-gray-400 hover:text-maingreen flex items-center justify-center">
-            <Copy className="h-4 w-4" />
-            <span className="sr-only">نسخ الحديث</span>
+          <button
+            onClick={handleCopy}
+            className="h-8 w-8 rounded-full hover:bg-maingreen/10 text-gray-500 dark:text-gray-400 hover:text-maingreen flex items-center justify-center transition-all"
+          >
+            {copied ? (
+              <Check className="h-4 w-4 text-maingreen" />
+            ) : (
+              <Copy className="h-4 w-4" />
+            )}
+            <span className="sr-only">
+              {locale === "ar" ? "نسخ الحديث" : "Copy Hadith"}
+            </span>
           </button>
         </div>
 

@@ -6,10 +6,9 @@ import NavBar from "@/Components/NavBar";
 import { Tajawal } from "next/font/google";
 import ThemeProvider from "@/Components/ThemeProvider";
 import AnimatedWaves from "@/Components/Ui/Waves";
-import "./globals.css";
 import AudioProvider from "@/Components/AudioProvider";
-import "test-tunez/dist/index.css";
 import AudioPlayerComp from "@/Components/AudioPlayer";
+import "./globals.css";
 
 // import { cookies } from "next/headers";
 

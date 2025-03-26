@@ -27,12 +27,12 @@ const HijriDate = async () => {
   const date = await getHijriDate();
   if (!date)
     return (
-      <div className=" inner-container mx-auto rounded-2xl p-6 bg-white dark:bg-zinc-800 shadow-md flex flex-col items-center justify-center gap-2 text-red-600 uppercase">
+      <div className=" inner-container mx-auto rounded-2xl p-6 bg-whitesomke dark:bg-zinc-800 shadow-md flex flex-col items-center justify-center gap-2 text-red-600 uppercase">
         Failed to get date
       </div>
     );
   return (
-    <div className=" inner-container mx-auto rounded-2xl p-6 bg-white dark:bg-zinc-800 shadow-md flex flex-col items-center justify-center gap-2">
+    <div className=" inner-container mx-auto rounded-2xl p-6 bg-whitesomke dark:bg-gradient-to-br dark:from-darkmode-light dark:to-darkmode-dark border-gray-200 dark:border-darkmode-light dark:bg-zinc-800 shadow-md flex flex-col items-center justify-center gap-2">
       <div className="flex gap-2 text-2xl font-bold text-maingreen items-center">
         <Calendar />
         <span className="ltr:hidden">التقويم الهجري</span>
