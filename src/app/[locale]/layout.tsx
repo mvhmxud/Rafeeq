@@ -44,16 +44,15 @@ export default async function LocaleLayout({
         className="dark:bg-zinc-900 bg-background overflow-x-hidden flex flex-col min-h-screen"
       >
         <NextIntlClientProvider messages={messages}>
-          <ThemeProvider />
-          {/* {localee} */}
-          <NavBar />
-          <AudioProvider>
-            <div className="container mx-auto">
-              {children}
-            </div>
-            <AudioPlayerComp/>
-          </AudioProvider>
-          <AnimatedWaves />
+          <ThemeProvider>
+            {/* {localee} */}
+            <NavBar />
+            <AudioProvider>
+              <div className="container mx-auto">{children}</div>
+              <AudioPlayerComp />
+            </AudioProvider>
+            <AnimatedWaves />
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>
