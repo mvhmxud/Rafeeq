@@ -1,31 +1,78 @@
 {
-    "title": "Rafeeq",
-    "NavBar":{
-        "Home"  :"Home",
-        "ContactUS" : "Contact us",
-        "LightMode" : "Switch to Light Mode",
-        "DarkMode" : "Switch to Dark Mode",
-        "Language"  : "العربية"
+  "title": "Rafeeq",
+  "NavBar": {
+    "Home": "Home",
+    "ContactUS": "Contact us",
+    "LightMode": "Switch to Light Mode",
+    "DarkMode": "Switch to Dark Mode",
+    "Language": "العربية"
+  },
+  "HeroBanner": {
+    "MainMessage": "All you need in Rafeeq!",
+    "PrayerTimes": "Accurate prayer times",
+    "Quran": "Quran with your favorite reciters",
+    "nearstMasjid": "Listen to the best Islamic radio stations anytime!",
+    "AzkarDoaa": "Daily supplications and remembrances"
+  },
+  "KeyFeatures": {
+    "title": "Rafeeq Features",
+    "desc": "Everything you need in one app to simplify your daily worship, from prayer times to Quran, supplications, and more.",
+    "Quran": "Listen to the Holy Quran with your favorite reciters in a seamless experience.",
+    "PrayerTimes": "Get accurate prayer times based on your location.",
+    "nearstMasjid": "Listen to the best Islamic radio stations anytime!",
+    "AzkarDoaa": "A trusted collection of supplications and prophetic hadiths in one place."
+  },
+  "Quran": {
+    "header": "Quran Reciters",
+    "placeholder": "Search for a Reciter...",
+    "desc": "Listen to Quran recitations by the most famous reciters."
+  },
+  "NextPrayer": {
+    "remainingTime": "Remaining Time",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds"
+  },
+  "prayerTimes": {
+    "Al-Asr": "Al-Asr",
+    "Al-Zuhr": "Al-Zuhr",
+    "Al-fajr": "Al-Fajr",
+    "Al-Isha": "Al-Isha",
+    "Al Maghrib": "Al Maghrib"
+  },
+  "radio": {
+    "header": "Islamic Radio staions",
+    "back": "Return to the home page",
+    "stations": "staions"
+  },
+  "hadithDoaa": {
+    "header": "Hadith & Supplications",
+    "desc": "Explore the treasures of wisdom and faith",
+    "hadithCardHeader": "Prophetic Hadith",
+    "hadithCardDesc": "A library of authentic Hadiths",
+    "hadithCardbtn": "Browse Hadiths",
+    "doaaCardHeader": "Supplications",
+    "doaaCardDesc": "A collection of prophetic supplications",
+    "doaaCardbtn": "Browse Supplications",
+    "doaa": {
+      "header": "Prophetic Supplications",
+      "doaa": "Supplication",
+      "doaaNumber": "Supplication No.",
+      "swipe": "Swipe left or right to navigate through supplications",
+      "back": "Back to the previous page"
     },
-   "HeroBanner": {
-  "MainMessage": "All you need in Rafeeq!",
-  "PrayerTimes": "Accurate prayer times",
-  "Quran": "Quran with your favorite reciters",
-  "nearstMasjid": "Find the nearest mosque",
-  "AzkarDoaa": "Daily supplications and remembrances"
-}
-,
-"KeyFeatures": {
-  "title": "Rafeeq Features",
-  "desc": "Everything you need in one app to simplify your daily worship, from prayer times to Quran, supplications, and more.",
-  "Quran": "Listen to the Holy Quran with your favorite reciters in a seamless experience.",
-  "PrayerTimes": "Get accurate prayer times based on your location.",
-  "nearstMasjid": "Find the nearest mosque to perform your prayers easily.",
-  "AzkarDoaa": "A trusted collection of supplications and prophetic hadiths in one place."
-}
-,
-"Quran":{
-    "header" : "All Reciters",
-    "placeholder" :  "ex : Albaqrah"
-}
+    "hadith": {
+      "header": "Prophetic Hadiths",
+      "desc": "A collection from the most important Hadith books",
+      "back": "Back to",
+      "hadith": "Hadith",
+      "hadithNumber": "Hadith No."
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "message": "Sorry, the page you are looking for does not exist, has been moved, or deleted.",
+    "backToHome": "Back to Home Page",
+    "error": "Error 404 | Page Not Found"
+  }
 }

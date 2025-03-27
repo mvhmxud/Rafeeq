@@ -8,6 +8,7 @@ import { Link } from "@/i18n/navigation";
 import { Collection } from "../../page";
 import HadithPagination from "@/Components/Hadith/hadithPagination";
 import { notFound } from "next/navigation";
+import { getMessages } from "next-intl/server";
 
 interface Book {
   lang: string;
@@ -112,6 +113,7 @@ export default async function HadithsPage({
   const searchParam = await searchParams;
   const page = searchParam.page ? Number(searchParam.page) : 1;
   const { collection, bookId } = await params;
+  const { hadithDoaa } = await getMessages();
 
   const [hadithList, collectionDetails, books]: [
     HadithResponse | null,
@@ -137,7 +139,7 @@ export default async function HadithsPage({
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             <span>
-              العودة إلى{" "}
+              {hadithDoaa.hadith.back}{" "}
               {collectionDetails.find((col) => col.lang === localee)?.title ??
                 "Unknown Collection"}
             </span>
@@ -156,7 +158,7 @@ export default async function HadithsPage({
               variant="outline"
               className="bg-maingreen/5 text-maingreen border-maingreen/20"
             >
-              حديث
+              {hadithDoaa.hadith.hadith}
             </Badge>
           </div>
 

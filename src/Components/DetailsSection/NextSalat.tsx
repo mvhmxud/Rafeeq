@@ -3,6 +3,7 @@ import { formatDate } from "@/utils/util";
 import { MapPin } from "lucide-react";
 import { useEffect, useState } from "react";
 import SquareLoder from "../Ui/Loader";
+import { useTranslations } from "next-intl";
 
 type PrayerTimings = { [key: string]: string };
 
@@ -42,6 +43,7 @@ const calculateRemainingTime = (prayerTime: string): number => {
 };
 
 export default function NextPrayerCountdown() {
+  const t = useTranslations("NextPrayer");
   const [nextPrayer, setNextPrayer] = useState<NextPrayer>({
     name: "",
     time: "",
@@ -84,7 +86,7 @@ export default function NextPrayerCountdown() {
 
         <div className="text-center">
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
-            الوقت المتبقي
+            {t("remainingTime")}
           </p>
           <div className="flex justify-center gap-4 text-3xl font-bold rtl:flex-row-reverse">
             <div className="flex flex-col items-center">
@@ -92,7 +94,7 @@ export default function NextPrayerCountdown() {
                 {String(hours).padStart(2, "0")}
               </span>
               <span className="text-xs text-gray-500 dark:text-gray-400">
-                ساعة
+                {t("hours")}
               </span>
             </div>
             <span className="text-darkmode-light dark:text-darkmode-lighttext">
@@ -103,7 +105,7 @@ export default function NextPrayerCountdown() {
                 {String(minutes).padStart(2, "0")}
               </span>
               <span className="text-xs text-gray-500 dark:text-gray-400">
-                دقيقة
+                {t("minutes")}
               </span>
             </div>
             <span className="text-darkmode-light dark:text-darkmode-lighttext">
@@ -114,7 +116,7 @@ export default function NextPrayerCountdown() {
                 {String(seconds).padStart(2, "0")}
               </span>
               <span className="text-xs text-gray-500 dark:text-gray-400">
-                ثانية
+                {t("seconds")}
               </span>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import { HadithCard } from "@/Components/Hadith/Card";
+import { getMessages } from "next-intl/server";
 import { cookies } from "next/headers";
 
 export interface Collection {
@@ -44,15 +45,16 @@ export default async function HadithCollectionsPage() {
   const hadithCollections: HadithCollection[] = (await getCollections()).filter(
     (col: HadithCollection) => col.hasBooks
   );
+  const { hadithDoaa } = await getMessages();
   return (
     <div className="inner-container mx-auto px-4 py-12">
       <div className=" mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4 text-darkgrey dark:text-darkmode-lighttext">
-            أحاديث نبوية
+            {hadithDoaa.hadith.header}
           </h1>
           <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
-            مجموعة من أهم كتب الحديث النبوي الشريف
+            {hadithDoaa.hadith.desc}
           </p>
         </div>
         <div className="grid gap-4 grid-cols-2 md:grid-cols-4">

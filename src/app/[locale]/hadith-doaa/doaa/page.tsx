@@ -10,6 +10,7 @@ import "swiper/css/effect-cards";
 import { EffectCards } from "swiper/modules";
 import { Link } from "@/i18n/navigation";
 import DoaaCard from "@/Components/Doaa/DoaaCard";
+import { useTranslations } from "next-intl";
 
 export const doaa_list = [
   {
@@ -87,6 +88,7 @@ export const doaa_list = [
 ];
 
 export default function DoaaPage() {
+  const t = useTranslations("hadithDoaa.doaa")
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -98,18 +100,18 @@ export default function DoaaPage() {
             className="inline-flex items-center text-gray-500 dark:text-gray-400 hover:text-maingreen dark:hover:text-maingreen mb-6 transition-colors"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            <span>العودة إلى الصفحة السابقة</span>
+            <span>{t("back")}</span>
           </Link>
 
           <div className="text-center mb-10">
             <h1 className="text-3xl font-bold mb-4 text-darkgrey dark:text-darkmode-lighttext">
-              الأدعية المأثورة
+              {t("header")}
             </h1>
             <Badge
               variant="outline"
               className="bg-maingreen/5 text-maingreen border-maingreen/20"
             >
-              {doaa_list.length} دعاء
+              {doaa_list.length} {t("doaa")}
             </Badge>
           </div>
         </div>
@@ -143,10 +145,7 @@ export default function DoaaPage() {
 
         {/* Swipe Instruction */}
         <div className="text-center mt-8 text-sm text-gray-500 dark:text-gray-400">
-          <p>اسحب لليمين أو لليسار للتنقل بين الأدعية</p>
-          <p className="text-xs mt-1">
-            (Swipe right or left to navigate between duas)
-          </p>
+          <p>{t("swipe")}</p>
         </div>
       </div>
     </div>
