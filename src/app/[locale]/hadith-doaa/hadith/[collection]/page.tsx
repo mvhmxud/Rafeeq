@@ -2,6 +2,7 @@ import { HadithCard as HadithBookCard } from "@/Components/Hadith/Card";
 import { cookies } from "next/headers";
 import { Collection as CollectionInfo } from "../page";
 import { notFound } from "next/navigation";
+import { getMessages } from "next-intl/server";
 
 const fetchCollectionBooks = async (collectionName: string) => {
   try {
@@ -66,6 +67,8 @@ interface HadithBook {
 const Page = async ({ params }: { params: { collection: string } }) => {
   const localee = (await cookies()).get("NEXT_LOCALE")?.value;
   const { collection } = params;
+    const { hadithDoaa } = await getMessages();
+  
 
   const [hadithBooks, collectionInfo]: [
     HadithBook[] | null,
@@ -88,7 +91,7 @@ const Page = async ({ params }: { params: { collection: string } }) => {
               ?.title || "Unknown Collection"}
           </h1>
           <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
-            مجموعة من أهم كتب الحديث النبوي الشريف
+            {hadithDoaa.desc}
           </p>
         </div>
         <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

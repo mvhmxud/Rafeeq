@@ -6,6 +6,7 @@ import { Input } from "@/Components/Ui/input";
 import { Card, CardContent } from "@/Components/Ui/card";
 import { Search, BookOpen } from "lucide-react";
 import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export interface Reciter {
   id: number;
@@ -22,6 +23,7 @@ export default function QuranRecitersList({
 }: {
   reciters: Reciter[];
 }) {
+  const t = useTranslations("Quran")
   const [searchQuery, setSearchQuery] = useState("");
   const params = useParams();
   const locale = params.locale;
@@ -41,10 +43,10 @@ export default function QuranRecitersList({
     <div className="inner-container mx-auto px-4 py-12">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-3 bg-gradient-to-r from-maingreen to-darkgreen bg-clip-text text-transparent">
-          قراء القرآن الكريم
+          {t("header")}
         </h1>
         <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
-          استمع إلى تلاوات القرآن الكريم بأصوات أشهر القراء
+          {t("desc")}
         </p>
       </div>
 
@@ -55,7 +57,7 @@ export default function QuranRecitersList({
         </div>
         <Input
           type="text"
-          placeholder="ابحث عن قارئ..."
+          placeholder={t("placeholder")}
           className="pl-10 py-6 bg-gray-100 dark:bg-darkmode-light border-gray-200 dark:border-darkmode-light text-darkgrey dark:text-darkmode-lighttext rounded-xl"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}

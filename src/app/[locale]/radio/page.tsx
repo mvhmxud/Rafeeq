@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getMessages } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
 import { Badge } from "@/Components/Ui/badge";
 import RadioCard from "@/Components/Radio/RadioCard";
@@ -22,6 +23,8 @@ const fetchRadioStaions = async () => {
 };
 export default async function IslamicRadioPage() {
   const radioStations: Radio[] = await fetchRadioStaions();
+  const { radio } = await getMessages();
+
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-6xl mx-auto">
@@ -30,19 +33,19 @@ export default async function IslamicRadioPage() {
             href="/"
             className="inline-flex items-center text-gray-500 dark:text-gray-400 hover:text-maingreen dark:hover:text-maingreen mb-6 transition-colors"
           >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            <span>العودة إلى الصفحة الرئيسية</span>
+            <ArrowLeft className="mr-2 h-4 w-4 rtl:rotate-180" />
+            <span>{radio.back}</span>
           </Link>
 
           <div className="text-center mb-10">
             <h1 className="text-3xl font-bold mb-4 text-darkgrey dark:text-darkmode-lighttext">
-              الإذاعات الإسلامية
+              {radio.header}
             </h1>
             <Badge
               variant="outline"
               className="bg-maingreen/5 text-maingreen border-maingreen/20"
             >
-              {radioStations.length} إذاعة
+              {radioStations.length} {radio.stations}
             </Badge>
           </div>
         </div>

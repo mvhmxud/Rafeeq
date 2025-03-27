@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, CardContent } from "@/Components/Ui/card";
 import { Button } from "@/components/ui/button";
 import { HandIcon as PrayingHands, Copy, Check } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface DoaaCardProps {
   id: number;
@@ -11,6 +12,7 @@ interface DoaaCardProps {
 
 const DoaaCard: React.FC<DoaaCardProps> = ({ id, text, translation }) => {
   const [copiedId, setCopiedId] = useState<number | null>(null);
+  const t = useTranslations("hadithDoaa.doaa")
 
   const copyToClipboard = async (text: string, id: number) => {
     try {
@@ -32,7 +34,7 @@ const DoaaCard: React.FC<DoaaCardProps> = ({ id, text, translation }) => {
             </div>
             <div>
               <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">
-                دعاء رقم {id}
+                {t("doaaNumber")} {id}
               </div>
             </div>
           </div>

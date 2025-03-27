@@ -1,17 +1,16 @@
-import { Link } from "@/i18n/navigation"
+import { Link } from "@/i18n/navigation";
 import { Card, CardContent } from "@/Components/Ui/card";
 import { BookText, BookOpen, FileText } from "lucide-react";
+import { AbstractIntlMessages } from "next-intl";
 
 type HadithCardProps = {
   id: string | number;
   title: string;
-  subtitle?: string;
-  description?: string;
   href: string;
   type: "collection" | "book" | "hadith";
 };
 
-export function HadithCard({ title, href, type }: HadithCardProps) {
+export function HadithCard({ title, href, type}: HadithCardProps) {
   const Icon =
     type === "collection" ? BookOpen : type === "book" ? BookText : FileText;
 
@@ -22,7 +21,10 @@ export function HadithCard({ title, href, type }: HadithCardProps) {
           <div className="w-12 h-12 rounded-full bg-maingreen/10 text-maingreen flex items-center justify-center lg:mr-4 flex-shrink-0">
             <Icon className="h-6 w-6" />
           </div>
-          <h3 title={title} className="text-md md:text-lg text-center font-medium text-darkgrey dark:text-darkmode-lighttext mb-1 lg:truncate">
+          <h3
+            title={title}
+            className="text-md md:text-lg text-center font-medium text-darkgrey dark:text-darkmode-lighttext mb-1 lg:truncate"
+          >
             {title}
           </h3>
         </CardContent>

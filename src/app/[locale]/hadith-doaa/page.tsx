@@ -1,17 +1,19 @@
-import { Link } from "@/i18n/navigation"
+import { Link } from "@/i18n/navigation";
 import { Card, CardContent } from "@/Components/Ui/card";
-import { BookText, HandIcon as PrayingHands, Heart } from "lucide-react";
+import { BookText, HandIcon as PrayingHands } from "lucide-react";
+import { getMessages } from "next-intl/server";
 
-export default function HadithDoaaPage() {
+export default async function HadithDoaaPage() {
+  const { hadithDoaa } = await getMessages();
   return (
     <div className="inner-container mx-auto px-4 py-12 ">
       <div className="mx-auto">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4  bg-gradient-to-r from-maingreen to-darkgreen bg-clip-text text-transparent ">
-            الحديث والدعاء
+            {hadithDoaa.header}
           </h1>
           <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
-            استكشف كنوز الحكمة والإيمان
+            {hadithDoaa.desc}
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-8 mb-12">
@@ -23,13 +25,13 @@ export default function HadithDoaaPage() {
                   <BookText className="h-12 w-12" />
                 </div>
                 <h2 className="text-2xl font-bold text-darkgrey dark:text-darkmode-lighttext mb-3">
-                  الحديث الشريف
+                  {hadithDoaa.hadithCardHeader}
                 </h2>
                 <p className="text-gray-600 dark:text-gray-400 mb-6">
-                 مكتبة من الأحاديث الموثوقة 
+                  {hadithDoaa.hadithCardDesc}
                 </p>
                 <div className="mt-auto pt-4 text-maingreen font-medium">
-                  استعرض الأحاديث
+                  {hadithDoaa.hadithCardbtn }
                 </div>
               </CardContent>
             </Card>
@@ -43,13 +45,13 @@ export default function HadithDoaaPage() {
                   <PrayingHands className="h-12 w-12" />
                 </div>
                 <h2 className="text-2xl font-bold text-darkgrey dark:text-darkmode-lighttext mb-3">
-                  الأدعية المأثورة
+                  {hadithDoaa.doaaCardHeader}
                 </h2>
                 <p className="text-gray-600 dark:text-gray-400 mb-6">
-    مجموعة من الأدعية النبوية 
+                  {hadithDoaa.doaaCardDesc}
                 </p>
                 <div className="mt-auto pt-4 text-maingreen font-medium">
-                  استعرض الأدعية
+                  {hadithDoaa.doaaCardbtn}
                 </div>
               </CardContent>
             </Card>

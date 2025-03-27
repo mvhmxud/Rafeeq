@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/Components/Ui/card";
 import { formatHadithText } from "@/utils/util";
 import { BookText, Copy, Check } from "lucide-react";
 import { Skeleton } from "@/Components/Ui/skeleton";
+import { useTranslations } from "next-intl";
 
 interface HadithDetailsCardProps {
   hadithEntry: HadithEntry;
@@ -40,7 +41,7 @@ const HadithDetailsCard: React.FC<HadithDetailsCardProps> = ({
   collection,
 }) => {
   const { hadith, hadithNumber } = hadithEntry;
-
+  const t = useTranslations('hadithDoaa.hadith')
   const [formattedText, setFormattedText] = useState<string | null>(null);
   const [localeHadith, setLocaleHadith] = useState<Hadith | null>(null);
   const [copied, setCopied] = useState(false);
@@ -83,7 +84,7 @@ const HadithDetailsCard: React.FC<HadithDetailsCardProps> = ({
               <div
                 className={`text-sm text-gray-500 dark:text-gray-400 mb-1 ${locale === "ar" ? "text-right" : "text-left"} `}
               >
-                حديث رقم {hadithNumber}
+                {t("hadithNumber")} {hadithNumber}
               </div>
               <div className="flex items-center">
                 <span className="text-sm font-medium text-darkgrey dark:text-darkmode-lighttext">
